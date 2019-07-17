@@ -24,7 +24,7 @@ public class LoopQueue<E> implements Queue<E> {
     private E[] data;
 
     public LoopQueue(int capactiy) {
-        data = (E[]) new Object[capactiy];
+        data = (E[]) new Object[capactiy+1]; //we will waste one space so we need to add one
         size = front = tail = 0;
     }
     //default size
@@ -38,6 +38,26 @@ public class LoopQueue<E> implements Queue<E> {
     @Override
     public void enqueue(E e) {
 
+        //when (tail+1)%data.length equals to front ,which means that the loop queue is full
+        if((tail+1)%data.length == front)
+            resizeLoopQueue(getCapacity()*2);
+
+            data[tail] = e;//tail 指向的是要要入队的元素【添加】当前最后一个元素是
+            tail = (tail+1) % data.length;
+            //出队时才会+1
+//            front = (front+1) % data.length;
+            size++;
+
+    }
+
+    private void resizeLoopQueue(int capacity) {
+        E[] e = (E[]) new Object[capacity+1];
+        for (int i = 0; i < size; i++) {
+            e[i] = data[(i+front)%data.length];
+        }
+        data = e;
+        front = 0;
+        tail = size;
     }
 
     /**
@@ -46,7 +66,18 @@ public class LoopQueue<E> implements Queue<E> {
      */
     @Override
     public E dequeue() {
-        return null;
+        //dequeue element from front
+        E frontElement = getFront();// getFront()
+        front = (front+1)%data.length;
+        size--;
+
+        /**when the size of the queue decrease and equals to the one fourth of the
+         * capacity ,we need to resize the queue to the original size to save space
+         */
+        if(size == getCapacity()/4){
+            resizeLoopQueue(getCapacity()/2);
+        }
+        return frontElement;
     }
 
     /**
@@ -55,17 +86,25 @@ public class LoopQueue<E> implements Queue<E> {
      */
     @Override
     public E getFront() {
-        return null;
+        //获取第一个元素需要判断当前是否有element
+        if (size == 0) {
+            throw new IllegalArgumentException("the queue is empty, u cant obtain the front element");
+        }
+        return data[front];
     }
 
     @Override
     public int getSize() {
-        //tail 会浪费一个position
-        return size -1;
+        return size;
+    }
+
+    //we already waste one element space
+    public int getCapacity() {
+        return data.length - 1;
     }
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return front == tail;
     }
 }

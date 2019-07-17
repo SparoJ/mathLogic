@@ -154,7 +154,8 @@ public class Array<E> {
         size --;
         //节省内存空间
         if(size == getCapacity()/4) {
-            resize(getCapacity()/4);
+            //item remove 只需要恢复到当前capacity的一半即可
+            resize(getCapacity()/2);
         }
         return removeElement;
     }
