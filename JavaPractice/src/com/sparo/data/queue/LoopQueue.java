@@ -67,7 +67,8 @@ public class LoopQueue<E> implements Queue<E> {
     @Override
     public E dequeue() {
         //dequeue element from front
-        E frontElement = getFront();// getFront()
+        E frontElement = data[front]; // getFront();
+        data[front] = null;//save space and avoid waste
         front = (front+1)%data.length;
         size--;
 
