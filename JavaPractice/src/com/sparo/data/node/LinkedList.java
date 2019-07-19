@@ -30,7 +30,10 @@ public class LinkedList<E> {
 
         @Override
         public String toString() {
-            return e.toString();
+            if (e != null) {
+                return e.toString();
+            }
+            return null;
         }
     }
 
@@ -51,6 +54,13 @@ public class LinkedList<E> {
 //        head = null;
         dummyHead = new Node();
         size = 0;
+    }
+
+    /**
+     * @return the size of the list
+     */
+    public int getSize() {
+        return size;
     }
 
     //add element to index position
@@ -206,5 +216,27 @@ public class LinkedList<E> {
         return (E) del.e;
     }
 
+    @Override
+    public String toString() {
 
+        StringBuilder builder = new StringBuilder();
+        builder.append("NODE->HEAD>>");
+        Node cur = dummyHead.next;
+        for (int i = 0; i < size; i++) {
+            builder.append(cur);  //Node 中已经 toString了所以不需要cur.e
+            //不需要单独处理size-1 因为最后一段需要这个标识，所以去掉
+//            if (i!=size-1) {
+                builder.append("-->>");
+//            }
+            // u just forget this !!!
+            cur = cur.next;
+        }
+        // 第二种 写法 ：：
+//        while(cur.next!=null) {
+//            builder.append(cur);
+//            cur = cur.next;
+//        }
+        builder.append("TAIL");
+        return builder.toString();
+    }
 }
