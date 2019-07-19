@@ -33,9 +33,10 @@ public class LinkedListQueue<E> implements Queue<E> {
     public int size;
 
 
-    public static class Node<E> {
+//    public static class Node {
+      public class Node { //we dont need to use static to modify the class type
 
-        E e;
+        public E e;
 
         Node next;
 
@@ -100,12 +101,12 @@ public class LinkedListQueue<E> implements Queue<E> {
             tail =null;
         }
         size --;
-        return (E) cur.e;
+        return cur.e;
     }
 
     @Override
     public E getFront() {
-        return head == null ? null : (E) head.e;
+        return head == null ? null :  head.e;
     }
 
 //    public E getLast() {
