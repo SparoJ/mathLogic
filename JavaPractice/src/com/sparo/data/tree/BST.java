@@ -2,14 +2,15 @@ package com.sparo.data.tree;
 
 import com.sparo.util.Utils;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
- *
  * description: 什么是 递归
  * 递归分为两个内容 一个是 递／ 一个是归
  * 递是从上到下深入 归是从下到上返回
- *
+ * <p>
  * Created by sdh on 2019-07-13
  */
 public class BST<E extends Comparable<E>> {
@@ -70,16 +71,16 @@ public class BST<E extends Comparable<E>> {
 
     //递归调用
     private Node addElement(Node node, E e) {
-        if(node == null) {
+        if (node == null) {
             size++;
             return new Node(e);
         }
 
         //比较 然后 遍历对应节点树
-        if (e.compareTo(node.e)>0) {//e > root.e
+        if (e.compareTo(node.e) > 0) {//e > root.e
             //right
             node.right = addElement(node.right, e);
-        } else if(e.compareTo(node.e)<0) {
+        } else if (e.compareTo(node.e) < 0) {
             node.left = addElement(node.left, e);
         }
         return node;
@@ -94,9 +95,9 @@ public class BST<E extends Comparable<E>> {
         if (root == null) {
             return false;
         }
-        if (e.compareTo(root.e)==0) {
+        if (e.compareTo(root.e) == 0) {
             return true;
-        } else if(e.compareTo(root.e)>0) {
+        } else if (e.compareTo(root.e) > 0) {
             //右子树
             return contains(root.right, e);
         } else {
@@ -111,6 +112,7 @@ public class BST<E extends Comparable<E>> {
     public void preOrder() {
         preOrder(root);
     }
+
     private void preOrder(Node root) {
         if (root == null) {
             return;
@@ -168,9 +170,8 @@ public class BST<E extends Comparable<E>> {
     }
 
     /**
-     *
-     * @param root 递归所在层节点
-     * @param i 当前层数
+     * @param root    递归所在层节点
+     * @param i       当前层数
      * @param builder
      * @return
      */
@@ -179,9 +180,9 @@ public class BST<E extends Comparable<E>> {
             Utils.println(getDeepthStr(i) + "BST end");
             return;
         }
-        Utils.println(getDeepthStr(i) +"node:"+ root);
-        generateToString(root.left, i+1, builder);
-        generateToString(root.right, i+1, builder);
+        Utils.println(getDeepthStr(i) + "node:" + root);
+        generateToString(root.left, i + 1, builder);
+        generateToString(root.right, i + 1, builder);
     }
 
     private Object getDeepthStr(int deep) {
@@ -195,9 +196,24 @@ public class BST<E extends Comparable<E>> {
 
     /**
      * 层序遍历
+     * 原理： 使用队列 入队和出队来管理node
+     * 可使用 LinkedList 作为 queue
      */
-    public void leverOrder() {
+    public void levelOrder() {
+        Queue<Node> list = new LinkedList<>();
 
+        //入队
+        list.add(root); //添加队尾
+        Utils.println(root);
+        while (!list.isEmpty()) { //移除从队首移除 参考 Queue 接口实现 这里是双端队列接口继承后的 双端链表
+            Node remove = list.remove();//移除队首元素
+            if (remove.left != null) {
+                list.add(remove.left);
+            }
+            if (remove.right != null) {
+                list.add(remove.right);
+            }
+        }
     }
 
     /**
@@ -213,9 +229,9 @@ public class BST<E extends Comparable<E>> {
             stack.push(root);
         }
 
-        while(!stack.isEmpty()) { //stack.peak() stack.isEmpty() --->>> stack.peek() 会在empty时候null exception
+        while (!stack.isEmpty()) { //stack.peak() stack.isEmpty() --->>> stack.peek() 会在empty时候null exception
             //出栈打印
-             Node node = stack.pop();
+            Node node = stack.pop();
             Utils.println(node);
             //前序遍历 先左后右 结合栈的特点是：右先入栈 左再入栈【出的时候相反 后入栈先出栈 即先遍历】
             if (node.right != null) {
@@ -228,4 +244,81 @@ public class BST<E extends Comparable<E>> {
 //            Utils.println("left:" + node.left);
         }
     }
+
+    /**
+     * *********************************************delete***************************************************
+     * 1. 先 find max／min
+     * 2. 再删除 max ／min
+     * 3. 再删除普通节点
+     */
+    public Node minNode() {
+        return minNode(root);
+    }
+
+    //     * 1. 先 find max／min
+    /**
+     * @param root
+     * @return 查找以root 为 根节点的 二分搜索树中的 最小值
+     */
+    private Node minNode(Node root) {
+        if (root == null) {
+            return null;
+        }
+        return root.left!=null?minNode(root.left):root;
+    }
+
+    public Node maxNode() {
+        return maxNode(root);
+    }
+
+    /**
+     * @param root
+     * @return  查找以root 为根节点的 二分搜索树中的 最大值
+     */
+    private Node maxNode(Node root) {
+        if (root == null) {
+            return null;
+        }
+        return root.right !=null?maxNode(root.right):root;
+    }
+
+    // * 2. 再删除 max ／min [要删除max／min 需要先找到max 和min]
+    public Node removeMin() {
+        //find min
+        Node minNode = minNode();
+        //traversal
+        root = removeMin(root);
+        return minNode;
+    }
+
+    /**
+     * @param root
+     * @return 删除以root为根的 最小元素后的 二分搜索树
+     */
+    private Node removeMin(Node root) {
+        if (root == null) {
+            return null;
+        }
+        //左子树继续
+        if (root.left != null) {
+            root.left = removeMin(root.left);
+        } else { //root 为最小值
+            //说明没有左子树 则将右子树 赋值给当前root 返回 且删除当前节点
+            Node right = root.right;
+            // 删除当前节点【min值】
+            root.right = null;
+            size --;
+            root =  right;
+        }
+        return root;
+    }
+
+
+    /**
+     * delete element
+     */
+//    public void
+
+
+    //*********************************************delete***************************************************
 }

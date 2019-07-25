@@ -26,9 +26,13 @@ public class TreeTest {
 //
 //        bst.laterOrder();
 
-        bst.noTR();
-
-        bst.leverOrder();
+//        bst.noTR();
+//
+//        bst.levelOrder();
+        for (int i = 0; i < 3; i++) {
+            bst.removeMin();
+        }
+        bst.midOrder();
 
     }
 }
