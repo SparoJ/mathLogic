@@ -33,6 +33,10 @@ public class TreeTest {
             bst.removeMin();
         }
         bst.midOrder();
-
+        Utils.println("---------------------------");
+        bst.removeElement(7);
+        // 二分搜索树 【中序遍历】：确认 指定元素删除后的树结构
+        bst.midOrder();
+        Utils.println("---------------------------");
     }
 }

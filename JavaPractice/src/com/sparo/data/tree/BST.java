@@ -315,9 +315,52 @@ public class BST<E extends Comparable<E>> {
 
 
     /**
+     * 删除以root 为根，Node 中 值为 e的 bst
      * delete element
      */
-//    public void
+    public void removeElement(E e) {
+        root = removeElement(root, e);
+    }
+
+    /**
+     * 移除以root 为根 中的 node值为e 的节点【而非删除Node 节点】
+     * @param root
+     * @param e 需要删除的元素
+     */
+    private Node removeElement(Node root, E e) {
+        if (root == null || e == null) {
+            return null;
+        }
+        if (e.compareTo(root.e)>0) { // 右子树
+            root.right = removeElement(root.right, e);
+        } else if(e.compareTo(root.e)<0) { // 左子树
+            root.left = removeElement(root.left, e);
+        } else { // 相等 即为要移除的 node
+            if(root.right == null) {
+                Node left = root.left;
+                root.left = null;
+                size --;
+                return left;
+            } else if(root.left == null) {
+                Node right = root.right;
+                root.right = null;
+                size --;
+                return right;
+            } else {
+                //左右子树都不为空时
+                //获取当前所要删除节点的子树中的 右子树中的最小值[比root大且最接近root的值]
+                // 当作删除后的新root 而将当前root删除
+                Node minRoot = minNode(root.right);
+                Node rightRoot = removeMin(root.right); //删除右子树中最小值后的root树
+                Node left = root.left;
+                root = minRoot;
+                root.left = left;
+                root.right = rightRoot;
+                return root;
+            }
+        }
+        return root;
+    }
 
 
     //*********************************************delete***************************************************
