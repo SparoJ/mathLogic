@@ -2,7 +2,10 @@ package com.sparo.data.tree;
 
 import com.sparo.util.Utils;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -16,7 +19,7 @@ import java.util.Stack;
 public class BST<E extends Comparable<E>> {
 
 
-    class Node {
+    public class Node {
         public E e;
 
         public Node left;
@@ -364,4 +367,82 @@ public class BST<E extends Comparable<E>> {
 
 
     //*********************************************delete***************************************************
+
+    public List<Integer> testPreorderNew() {
+        return preorderTraversal(root);
+    }
+
+    /**
+     * Definition for a binary tree node.
+     */
+    public List<Integer> preorderTraversal(Node root) {
+        // 结果集合
+        ArrayList<Integer> list = new ArrayList<>();
+        /**
+         * 将遍历考虑成一个Node 的三个行为操作，print/left/right 整体是一个traversal
+         * 封装成对象
+         */
+        ArrayDeque<Path> deque = new ArrayDeque<>();
+        deque.addFirst(new Path(1, root));
+        while (!deque.isEmpty()) {
+            Path path = deque.removeFirst();
+            if (path.node != null) {
+                if (path.val == 0) {
+                    // print
+                    list.add((Integer) path.node.e);
+                } else if (path.val == 1) {
+                    /**
+                     * traversal one node with three events （traversal left and                          * right and print the node value）
+                     */
+                    deque.addFirst(new Path(1, path.node.right));
+                    deque.addFirst(new Path(1, path.node.left));
+                    deque.addFirst(new Path(0, path.node));
+                }
+            }
+        }
+        return list;
+    }
+
+    public class Path {
+        // 0 stands for print , 1 stands for traversal
+       public int val;
+        Node node;
+
+        public Path(int value, Node node) {
+            this.val = value;
+            this.node = node;
+        }
+    }
+
+
+    public Node convertBSTtoNode() {
+        return recursionNode(root);
+    }
+
+    private Node recursionNode(Node root) {
+
+        if (root==null) {
+            return null;
+        }
+        // 左子树
+        Node cur = recursionNode(root.left);
+        if (cur!=null) {
+            while(cur.right!=null) {
+                cur = cur.right;
+            }
+            root.left = cur;
+            cur.right = root;
+        }
+        // 右子树
+        Node curR = recursionNode(root.right);
+        if (curR != null) {
+            while(curR.left!=null) {
+                curR = curR.left;
+            }
+            root.right = curR;
+            curR.left = root;
+        }
+
+        return null;
+    }
 }

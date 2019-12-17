@@ -2,6 +2,8 @@ package com.sparo.data.tree;
 
 import com.sparo.util.Utils;
 
+import java.util.List;
+
 /**
  * description:
  * Created by sdh on 2019-07-24
@@ -29,14 +31,23 @@ public class TreeTest {
 //        bst.noTR();
 //
 //        bst.levelOrder();
-        for (int i = 0; i < 3; i++) {
-            bst.removeMin();
+//        for (int i = 0; i < 3; i++) {
+//            bst.removeMin();
+//        }
+//        bst.midOrder();
+//        Utils.println("---------------------------");
+//        bst.removeElement(7);
+//        // 二分搜索树 【中序遍历】：确认 指定元素删除后的树结构
+//        bst.midOrder();
+//        Utils.println("---------------------------");
+
+
+        //  新前序遍历
+        List<Integer> list = bst.testPreorderNew();
+        for (int i = 0; i < list.size(); i++) {
+            Utils.print(list.get(i));
         }
-        bst.midOrder();
-        Utils.println("---------------------------");
-        bst.removeElement(7);
-        // 二分搜索树 【中序遍历】：确认 指定元素删除后的树结构
-        bst.midOrder();
-        Utils.println("---------------------------");
     }
+
+
 }
