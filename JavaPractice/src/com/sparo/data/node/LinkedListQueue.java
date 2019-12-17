@@ -8,6 +8,7 @@ import com.sparo.data.queue.Queue;
  * 1& we dont need to use dummyHead here
  * 2& to find out which side to add element and which side to remove element
  * so that we can satisfy the feature of the queue and ensure the the complex of the algorithm at a relative low state
+ * 出队从list的head，入队在list的tail ？为什么而不是相反？
  * <p>
  * Created by sdh on 2019-07-18
  */
