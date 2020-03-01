@@ -63,9 +63,18 @@ public class MergeSortStrategy implements IAlgorithmStrategy {
         t = 0;
 
         while(left <= right) {
-            arr[left++] = temp[t++];
+            arr[left] = temp[t];
+            System.out.println("--arr---" + "left-->>" + left + "->t"+ t + "->arr[left]->" + arr[left] + "->temp t->" + temp[t]);
+            left++;
+            t++;
         }
-        System.out.println("--arr---" + "left-->>" + left);
+        System.out.println("arr->" + "down");
+        Utils.printIntArray(temp);
         Utils.printIntArray(arr);
+        System.out.println("arr->" + "above");
+        char c = 's';
+        if ('a' <= c) {
+            
+        }
     }
 }
