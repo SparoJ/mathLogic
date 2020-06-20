@@ -1,4 +1,4 @@
-package com.sparo.math.test;
+package com.sparo.test;
 
 public class Test09 {
 

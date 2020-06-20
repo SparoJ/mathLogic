@@ -10,10 +10,12 @@ import com.sparo.util.Utils;
 public class TopK {
 
     public static void main(String[] args) {
-        int[] arr = {3, 3, 6, 7 , 4, 3, 9, 10, 2 , 3, 1, 5, 0, 8};
+//        int[] arr = {3, 3, 6, 7 , 4, 3, 9, 10, 2 , 3, 1, 5, 0, 8};
+        int[] arr = {3,2,1,5,6,4};
         TopK tk = new TopK();
-       int k =  tk.quickSelect(arr, 0, arr.length-1, 5);
+       int k =  tk.quickSelect(arr, 0, arr.length-1, 2);
        System.out.println("topK->" + k);
+
        int[] sort = arr.clone();
         QuickSortStrategyPlus qssp = new QuickSortStrategyPlus();
         Utils.printIntArray(qssp.sort(sort));
@@ -26,15 +28,19 @@ public class TopK {
         int temp = A[left]; //将A[left]存放至临时变量temp
         while(left<right)  //只要left与right不相遇
         {
-            while(left<right && A[right]>temp) //反复左移right
+            while(left<right && A[right]<=temp) //反复左移right
                 right--;
+//            if(left<right) {}
             A[left] = A[right];	//将A[right]挪到A[left]
-            while(left<right && A[left]<=temp)	 //反复右移left
+            while(left<right && A[left]>=temp)	 //反复右移left
                 left++;
+//            if(left<right){}
             A[right] = A[left];	//将A[left]挪到A[right]
         }
 
         A[left] = temp;	//把temp放到left与right相遇的地方
+        System.out.println("partation 一轮后数组->index->" + left);
+        Utils.printIntArray(A);
         return left;	//返回相遇的下标
     }
 

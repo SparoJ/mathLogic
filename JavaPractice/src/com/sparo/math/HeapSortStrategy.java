@@ -10,8 +10,10 @@ public class HeapSortStrategy {
 
     public static void main(String[] args) {
         HeapSortStrategy hss = new HeapSortStrategy();
-        int[] arr = {3, 3, 6, 7 , 4, 3, 9, 10, 8, 2 , 3, 1, 5, 0};
-        hss.sort(arr);
+//        int[] arr = {3, 3, 6, 7 , 4, 3, 9, 10, 8, 2 , 3, 1, 5, 0};
+//        hss.sort(arr);
+        int[] arr = {7,6,5,4,3,2,1};
+        hss.createMinHeap(arr);
         Utils.printIntArray(arr);
     }
 
@@ -38,6 +40,8 @@ public class HeapSortStrategy {
 //        }
 //        3->3->3->7->2->1->0->10->8->4->3->6->5->9------------------------ ！！！wrong
         for(int i = length/2-1; i>=0; i--) {
+            //所谓shfitDown 是基于 底层结构满足堆特性时 继续执行下沉操作才有意义，
+            // 否则只是局部满足 节点和子节点之间的大小关系
             shiftDown(arr, i, length);
         }
 //        0->2->1->7->3->3->6->10->8->4->3->3->5->9------------------------
@@ -45,15 +49,24 @@ public class HeapSortStrategy {
     }
 
     //最小堆下沉 字段含义不清晰 导致逻辑混乱
+
+    /**
+     *
+     * @param arr 排序数组
+     * @param parentIndex 从什么位置开始下沉
+     * @param size 到什么位置截止下沉
+     */
     public void shiftDown(int[] arr, int parentIndex, int size) {
         int temp = arr[parentIndex];
         //得到i 位置元素对应的子元素childIndex
         int childIndex = 2*parentIndex+1;
+        // 循环下沉的结束条件，至少保证下沉位置的子节点有元素，否则下沉无意义即下沉条件已不满足，结束下沉
         while(childIndex < size) { // size 可 = length-1
             // 找出左右子元素的大值
             if(childIndex+1<size && arr[childIndex] > arr[childIndex+1]) {
                 childIndex++;
             }
+            //下沉元素交换条件不满足，即比最小的还小 则下沉循环结束
             if(temp <= arr[childIndex]) {
                 break;
             }

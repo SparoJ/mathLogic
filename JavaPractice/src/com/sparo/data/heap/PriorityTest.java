@@ -70,6 +70,12 @@ public class PriorityTest {
             }
         }
         System.out.println(tm);
+//        PriorityQueue<Item> pq = new PriorityQueue<>(new Comparator<Item>() {
+//            @Override
+//            public int compare(Item o1, Item o2) {
+//                return 0;
+//            }
+//        });
         PriorityQueue<Item> pq = new PriorityQueue<>();
         //遍历 TreeMap
         for(int key : tm.keySet()) {

@@ -25,4 +25,14 @@ public class Utils {
     public static void print(Object o) {
         System.out.print(o);
     }
+
+    public static void printWithTag(String tag, Object o) {
+        System.out.println(tag + "result->" + o);
+    }
+
+    public static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }
