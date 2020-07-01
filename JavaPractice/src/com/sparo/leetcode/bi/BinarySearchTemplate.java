@@ -8,7 +8,7 @@ import com.sparo.util.Utils;
  * 边界保护判定 和 返回direction==left?left:right;
  * Created by sdh on 2020-06-29
  */
-public class BinarySearch {
+public class BinarySearchTemplate {
 
     public static void main(String[] args) {
         int[] nums = {1,2,4,4,4,5,6};
