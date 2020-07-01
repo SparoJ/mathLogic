@@ -1,4 +1,4 @@
-package com.sparo.base;
+package com.sparo.leetcode.bi;
 
 import com.sparo.util.Utils;
 
@@ -111,10 +111,12 @@ public class BinarySearch {
                 right = mid-1;
             }
         }
-        if(right<=0|| nums[right]!=target)
+        //❌ 这里右边界right 可为0，左边界也可为0 「（1） target 为1 ，left = right = 0」
+        if(right<0|| nums[right]!=target)
         return - 1; // 注意
        return right;
     }
+
 
 
 }
