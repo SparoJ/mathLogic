@@ -1,4 +1,4 @@
-package com.sparo.$2index;
+package com.sparo.leetcode.bi;
 
 /**
  * description: 153. 寻找旋转排序数组中的最小值
