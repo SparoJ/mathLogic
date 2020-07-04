@@ -24,7 +24,7 @@ package com.sparo.leetcode.bi;
  * 输出: [-1,-1]
  *
  */
-public class LeetCode34 {
+public class FindFirst$Last34 {
 
     public int[] searchRange(int[] nums, int target) {
 
