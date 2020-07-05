@@ -2,6 +2,7 @@ package com.sparo.leetcode.bi;
 
 /**
  * description: 162. 寻找峰值
+ * 方案可通解：852. 山脉数组的峰顶索引
  * 峰值元素是指其值大于左右相邻值的元素。
  *
  * 给定一个输入数组 nums，其中 nums[i] ≠ nums[i+1]，找到峰值元素并返回其索引。
