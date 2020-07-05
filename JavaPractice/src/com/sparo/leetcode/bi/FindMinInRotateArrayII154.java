@@ -29,7 +29,7 @@ package com.sparo.leetcode.bi;
         链接：https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii
         著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。*/
 
-public class FindMinInRotateArrayII {
+public class FindMinInRotateArrayII154 {
 
     public int findMin(int[] nums) {
         //153 方案回顾 🤔为何不能在重复元素下使用
