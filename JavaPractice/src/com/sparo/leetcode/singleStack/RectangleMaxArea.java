@@ -41,6 +41,8 @@ public class RectangleMaxArea {
         for(int i = 0; i<newH.length; i++) {
             while(!stack.isEmpty()&& newH[i]< newH[stack.peek()]) {
                 int curHeight = newH[stack.pop()];
+                //健壮性
+                if(stack.isEmpty())break;
                 maxArea = Math.max(maxArea, curHeight*(i-stack.peek()-1));
             }
             stack.push(i);
