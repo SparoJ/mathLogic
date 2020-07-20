@@ -79,6 +79,93 @@ public class WidthOfBinaryTree {
         }
     }
 
+//20200720 版
+//    int maxWidth;
+//    LinkedList<Integer> list;
+//    private int wobtRecursion(TreeNode root) {
+//        if(root == null) return 0;
+//        //用于记录最大宽度值
+//        maxWidth = 1; //root 非空，width至少为1
+//        //用于记录对应level层第一个节点的索引
+//        list = new LinkedList<>();
+//        recurHelper(root, 0, 1);
+//        return maxWidth;
+//    }
+//
+//    private void recurHelper(TreeNode node, int level, int index) {
+//        if(node == null) return;
+//        if(level==list.size()) {
+//            list.add(index);
+//        } else {
+//            //list 存的是当前层的第一个节点的索引，用当前层其他节点的索引减去第一个节点索引+1即为当前最大宽度值
+//            maxWidth = Math.max(maxWidth, index-list.get(level)+1);
+//        }
+//        //递归
+//        recurHelper(node.left, level+1, 2*index);
+//        recurHelper(node.right, level+1, 2*index+1);
+//    }
+//
+//
+//    private int wobtTraversalOriginal(TreeNode root) {
+//        if(root == null) return 0;
+//        //队列初始化
+//        ArrayDeque<TreeNode> queue = new ArrayDeque<>();
+//        queue.offer(root);
+//        //存储index 的list getLast/getFirst && removeLast peekFirst/peekLast均是deque 接口的api，deque继承queue 接口，queue接口没有以上api，只有基础的 offer/poll/peek/remove/add等
+//        LinkedList<Integer> list = new LinkedList<>();//因为需要remove所以选择链表
+//        list.add(1);
+//        int maxWidth = 1;
+//        while(!queue.isEmpty()) {
+//            int size = queue.size();
+//            //LinkedList 作为 Deque才有的api能力
+//            maxWidth = Math.max(maxWidth, list.getLast()-list.getFirst()+1);
+//            //取队首作为锚点值
+//            int pivotIndex = list.peekFirst();
+//            for(int i = 0; i < size; i++) {
+//                //❌ 同步队列 从队首出队 (错误示范 按照记忆？调用了removeLast！)
+//                int index = list.removeFirst();
+//                TreeNode node = queue.poll();
+//                if(node.left!=null) {
+//                    queue.offer(node.left);
+//                    list.add(index*2-pivotIndex);
+//                }
+//                if(node.right!=null) {
+//                    queue.offer(node.right);
+//                    list.add(index*2+1-pivotIndex);
+//                }
+//            }
+//        }
+//        return maxWidth;
+//    }
+//
+//    private int wobtTraversal(TreeNode root) {
+//        if(root == null) return 0;
+//        ArrayDeque<TreeNode> queue = new ArrayDeque<>();
+//        queue.offer(root);
+//        int maxWidth = 1;
+//        //修改root val
+//        root.val = 1;
+//        while(!queue.isEmpty()) {
+//            int size = queue.size();
+//            maxWidth = Math.max(maxWidth, queue.peekLast().val-queue.peekFirst().val+1);
+//            //防止超界可设置pivot 值
+//            int pivotIndex = queue.peekFirst().val;
+//            for(int i = 0; i < size; i++) {
+//                TreeNode node = queue.poll();
+//                int index = node.val;
+//                if(node.left!=null) {
+//                    node.left.val = 2*index-pivotIndex;
+//                    queue.offer(node.left);
+//                }
+//                if(node.right!=null) {
+//                    node.right.val = 2*index+1-pivotIndex;
+//                    queue.offer(node.right);
+//                }
+//            }
+//        }
+//        return maxWidth;
+//    }
+
     //如果在尝试dfs/bfs 得到width时 存在超过32层越界int的可能时，可改用double 记录，另对bfs可在每层遍历时记录first值
     public int widthOfBinaryTree(TreeNode root) {
 
