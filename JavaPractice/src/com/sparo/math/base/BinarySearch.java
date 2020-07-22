@@ -11,12 +11,12 @@ public class BinarySearch {
 
         public static void main(String[] args) {
             BinarySearch bs = new BinarySearch();
-            int[] arr = {3, 3, 5, 7 , 7, 3, 9, 10, 2 , 3, 1, 5, 0, 8};
+            int[] arr = { 7 ,5, 3, 3, 7, 3, 9, 10, 2 , 3, 1, 5, 0, 8};
             MergeSortStrategy mss = new MergeSortStrategy();
             mss.sort(arr);
             Utils.printIntArray(arr);
-            int index = bs.binarySearchMultiple(arr, 5);
-            System.out.println("index->>" + index);
+//            int index = bs.binarySearchMultiple(arr, 5);
+//            System.out.println("index->>" + index);
         }
 
         public int binarySearch(int[] arr, int item) {
