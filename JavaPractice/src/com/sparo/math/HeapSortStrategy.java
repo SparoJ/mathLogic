@@ -11,9 +11,11 @@ public class HeapSortStrategy {
     public static void main(String[] args) {
         HeapSortStrategy hss = new HeapSortStrategy();
 //        int[] arr = {3, 3, 6, 7 , 4, 3, 9, 10, 8, 2 , 3, 1, 5, 0};
-//        hss.sort(arr);
-        int[] arr = {7,6,5,4,3,2,1};
-        hss.createMinHeap(arr);
+        int[] arr = {1,4,3,6,5,8,7};
+        hss.sort(arr);
+
+//        int[] arr = {7,6,5,4,3,2,1};
+//        hss.createMinHeap(arr);
         Utils.printIntArray(arr);
     }
 
@@ -27,8 +29,11 @@ public class HeapSortStrategy {
             int temp = arr[0];
             arr[0] = arr[size-1];
             arr[size-1] = temp;
+            Utils.printWithTag("temp->",  arr[0] + "-> size-1->" + arr[size-1]);
             size --;
+            Utils.printIntArray(arr);
             shiftDown(arr, 0, size);
+            Utils.printIntArray(arr);
         }
     }
 

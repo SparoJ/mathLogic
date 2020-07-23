@@ -29,7 +29,7 @@ public class QuickSortStrategyPlus implements IAlgorithmStrategy {
 
        int partition =  partition(arr, left, right);
        System.out.println("partition-->>" + partition);
-        quickSortPlus(arr, left, partition); // 不带最后的节点  即 not quickSortPlus(arr, left, partition); 或者在前面递归终止条件处改为>=
+        quickSortPlus(arr, left, partition-1); // 不带最后的节点  即 not quickSortPlus(arr, left, partition); 或者在前面递归终止条件处改为>=
         quickSortPlus(arr, partition+1, right);
     }
 
