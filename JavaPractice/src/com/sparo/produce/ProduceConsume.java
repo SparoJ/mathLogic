@@ -47,10 +47,13 @@ public class ProduceConsume {
                    synchronized (queue) {
                         while(queue.size() == maxCount) {
                             queue.wait();
+                            System.out.println("produce wait ---name---" + getName());
                         }
+                        Thread.sleep(300);
                        Product product = new Product();
                        queue.add(product);
                        queue.notifyAll();
+                       System.out.println("produce to notify ---name---" + getName());
                        System.out.println("produce----size::" + queue.size() + "name---" + getName());
                    }
                 }
@@ -75,11 +78,14 @@ public class ProduceConsume {
             try {
                 while(true) {
                     synchronized (queue) {
-                        while(queue.isEmpty()) {
+                        if(queue.isEmpty()) {
                             queue.wait();
+                            System.out.println("consume wait ---name---" + getName());
                         }
+                        Thread.sleep(200);
                         queue.remove();
                         queue.notifyAll();
+                        System.out.println("consume to notify ---name---" + getName());
                         System.out.println("consume----size::" + queue.size() + "name---" + getName());
                     }
                 }
