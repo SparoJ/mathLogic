@@ -6,5 +6,7 @@ package com.sparo.test;
  */
 public class TestGit {
 
-    public static void  main() { System.out.println("rebase");}
+    public static void  main()
+    { System.out.println("rebase");
+    }
 }
