@@ -6,4 +6,5 @@ package com.sparo.test;
  */
 public class TestGit {
 
+    public static void  main() {}
 }
